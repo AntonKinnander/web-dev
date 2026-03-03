@@ -9,7 +9,7 @@ const PORT = 3005;
 //Still cant load a specific store
 const stores = require("../client/assets/stores.json");
 
-// Serve static files from the client directory
+// Serve static files from the client directory, serves JS, CSS and HTML
 app.use(express.static(path.join(__dirname, "../client")));
 
 app.use("/", express.static("public"));
