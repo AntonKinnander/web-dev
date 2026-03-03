@@ -396,14 +396,14 @@
     "url": "hm.com/sv_se/customer-service/shoppa-pa-hm/store-locator",
     "district": "Öster",
     "description": "This is very fun because trying on clothes is like a fashion show where you are the star! Strut your stuff in the fitting room and discover the new you while strolling through Jönköping's streets.",
-    "slug": "H_M"
+    "slug": "HM"
   },
   {
     "name": "H&M Home",
     "url": "hm.com/sv_se/customer-service/shoppa-pa-hm/store-locator",
     "district": "Öster",
     "description": "This is very fun because trying on clothes is like a fashion show where you are the star! Strut your stuff in the fitting room and discover the new you while strolling through Jönköping's streets.",
-    "slug": "H_M"
+    "slug": "HM_Home"
   },
   {
     "name": "Indiska",
@@ -886,14 +886,14 @@
     "url": "synsam.se/optiker/synsam-j%C3%B6nk%C3%B6ping-%C3%B6ster/128",
     "district": "Öster",
     "description": "This is very fun because seeing clearly is a superpower! Try on glasses that make you look smart, find your focus, and enjoy the crisp views of Jönköping's beautiful streets and lovely Vättern.",
-    "slug": "Synsam_Jonkoping"
+    "slug": "Synsam_Oster"
   },
   {
     "name": "Synsam Jönköping Väster",
     "url": "synsam.se/optiker/synsam-j%C3%B6nk%C3%B6ping-v%C3%A4ster/125",
     "district": "Väster",
     "description": "This is very fun because seeing clearly is a superpower! Try on glasses that make you look smart, find your focus, and enjoy the crisp views of Jönköping's beautiful streets and lovely Vättern.",
-    "slug": "Synsam_Jonkoping"
+    "slug": "Synsam_Vaster"
   },
   {
     "name": "Systembolaget",

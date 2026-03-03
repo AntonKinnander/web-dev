@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch((err) => console.error("Error", err));
   }
 
-  //Fetches the store from the server for store.html templat
+  //Fetches the store from the server for store.html template
   const div = document.getElementById("store_info");
   if (div) {
     // Extract slug from the URL path

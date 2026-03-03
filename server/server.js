@@ -16,7 +16,7 @@ app.use("/", express.static("public"));
 
 //Serve stores.json
 app.get("/stores", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/assets/stores.json"));
+  res.json(stores);
 });
 
 // Serve the store.html for /store/:slug URLs
