@@ -104,6 +104,18 @@ async function disconnectDB() {
     console.log('Disconnected from database');
 }
 
+// Verify admin
+async function verifyAdmin(username, password) {
+    const query = 'SELECT * FROM admins WHERE username = $1 AND password = $2;';
+    try {
+        const res = await client.query(query, [username, password]);
+        return res.rows.length > 0;
+    } catch (err) {
+        console.error('Error verifying admin', err.stack);
+        return false;
+    }
+}
+
 module.exports = {
     connectDB,
     getAllStores,
@@ -112,5 +124,6 @@ module.exports = {
     createStore,
     updateStore,
     deleteStore,
-    disconnectDB
+    disconnectDB,
+    verifyAdmin
 };

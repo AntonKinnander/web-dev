@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const Store = require("./postgres");
+const Store = require("./model");
 
 const app = express();
 const PORT = 3005;
@@ -90,7 +90,28 @@ const startServer = async () => {
 
   // Serve admin panel
   app.get("/admin", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/admin.html"));
+    const cookies = req.headers.cookie || "";
+    if (cookies.includes("admin=true")) {
+      res.sendFile(path.join(__dirname, "../client/admin.html"));
+    } else {
+      res.redirect("/login");
+    }
+  });
+
+  // Login routes
+  app.get("/login", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/login.html"));
+  });
+
+  app.post("/login", express.urlencoded({ extended: true }), async (req, res) => {
+    const { username, password } = req.body;
+    const isValid = await Store.verifyAdmin(username, password);
+    if (isValid) {
+      res.setHeader("Set-Cookie", "admin=true; HttpOnly; Path=/");
+      res.redirect("/admin");
+    } else {
+      res.status(401).send("Invalid credentials. <a href='/login'>Try again</a>");
+    }
   });
 
   app.listen(PORT, () => {
