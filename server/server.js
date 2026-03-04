@@ -1,45 +1,60 @@
-// Import the Express framework (used to create a web server and API routes),
-// path imports node,js which handle files,
-//app creates express app
 const express = require("express");
 const path = require("path");
+const Store = require("./postgres");
+
 const app = express();
 const PORT = 3005;
 
-//Still cant load a specific store
-const stores = require("../client/assets/stores.json");
-
-// Serve static files from the client directory, serves JS, CSS and HTML
+// Middleware
+app.use(express.json());
+//Path to serve from
 app.use(express.static(path.join(__dirname, "../client")));
 
 app.use("/", express.static("public"));
 
-//Serve stores.json
-app.get("/stores", (req, res) => {
-  res.json(stores);
-});
+//connect to database
+const startServer = async () => {
+  await Store.connectDB();
 
-// Serve the store.html for /store/:slug URLs
-app.get("/store/:slug", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/store.html"));
-});
+  //Serve stores from DB
+  app.get("/stores", async (req, res) => {
+    try {
+      const stores = await Store.getAllStores();
+      //turns the data into json
+      res.json(stores);
+    } catch (err) {
+      res.status(500).json({ error: "Failed to fetch stores" });
+    }
+  });
 
-//Random store (in header)
-app.get("/random", (req, res) => {
-  const storeID = Math.floor(Math.random() * stores.length);
-  const store = stores[storeID];
-  // https://www.geeksforgeeks.org/web-tech/express-js-res-redirect-function/ Express reirect info
-  res.redirect(`/store/${store.slug}`);
-});
+  // Serve the store.htmllayout
+  app.get("/store/:slug", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/store.html"));
+  });
 
-//To show specific store pages Borde vi ändra och lägga in slug utan svenska tecken så urln blir /ahlens istället för /åhlens?
-//Test with slugs
-app.get("/stores/:slug", (req, res) => {
-  const slug = req.params.slug.toLowerCase();
-  const store = stores.find((store) => store.slug.toLowerCase() === slug);
-  res.json(store);
-});
+  //Random store (in header)
+  app.get("/random", async (req, res) => {
+    const store = await Store.getRandomStore();
+    res.redirect(`/store/${store.slug}`);
+  });
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+  //To show specific store pages 
+  //Test with slugs
+  app.get("/stores/:slug", async (req, res) => {
+    try {
+      const store = await Store.getStoreBySlug(req.params.slug);
+      if (!store) {
+        return res.status(404).json({ error: "Store not found" });
+      }
+      res.json(store);
+    } catch (err) {
+      res.status(500).json({ error: "Failed to fetch store" });
+    }
+  });
+
+  app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+  });
+};
+
+startServer();
