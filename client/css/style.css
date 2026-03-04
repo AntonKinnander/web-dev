@@ -1,10 +1,207 @@
 :root {
-  --font-primary: ;
-  --font-secondary: ;
+  --font-primary: "acumin-pro", sans-serif;
+  --font-secondary: "acumin-pro", sans-serif;
   --color-primary: rgb(255, 255, 255);
   --color-secondary: rgb(0, 0, 0);
 }
 
 body {
-  font-family: "acumin-pro", sans-serif;
+  font-family: var(--font-primary);
+  background-image: url("https://img1.picmix.com/output/stamp/normal/6/0/8/4/1354806_5e8af.gif");
+  background-repeat: repeat;
+  margin: 0;
+  padding: 0 5%;
+}
+
+header {
+  background: linear-gradient(rgb(255, 20, 147), rgb(0, 0, 0));
+  display: flex;
+  border-color: rgb(204, 204, 204);
+  border-style: outset;
+  border-width: 0.5em;
+  border-bottom: none;
+  height: 3em;
+  color: white;
+  padding: 0.2em;
+  margin: 0.5em;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  border-style: outset;
+  border-width: 0.25em;
+  border-color: rgb(204, 204, 204);
+  padding: 0.5em 0.5em;
+  background-color: rgb(179, 179, 179);
+  display: inline-block;
+}
+
+a:hover {
+  color: yellow;
+  text-decoration: underline;
+}
+
+header h1 {
+  margin: 0 auto;
+  color: rgb(247, 160, 255);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+h1 {
+  color: rgb(71, 10, 39);
+  margin: 0.5em;
+  text-shadow: 0 0 0.6em rgb(85, 178, 255);
+  text-align: center;
+}
+
+h2 {
+  color: rgb(255, 20, 147);
+  margin: 0.5em;
+  font-size: 2em;
+  text-shadow: 0 0 0.6em rgba(255, 20, 147, 0.576);
+  text-align: left;
+}
+
+form,
+#storeList,
+ul#stores,
+div#group>div,
+div#store_info {
+  background-color: rgb(179, 179, 179);
+  border-color: rgb(204, 204, 204);
+  border-style: outset;
+  border-width: 0.25em;
+  padding: 1.5em;
+  margin: 1em auto;
+  max-width: 800px;
+}
+
+ul#stores {
+  list-style: none;
+}
+
+ul#stores li,
+div#store_info,
+#storeList div {
+  margin-bottom: 0.5em;
+  text-align: left;
+
+}
+
+ul#stores li a,
+div#store_info a,
+#storeList div a {
+
+  align-self: flex-end;
+  margin-top: -2em;
+
+}
+
+
+ul#stores li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #999;
+  padding-bottom: 0.5em;
+}
+
+ul#stores li h2 {
+  margin: 0;
+  flex-grow: 1;
+
+}
+
+ul#stores li hr {
+  display: none;
+
+}
+
+ul#stores li a {
+  align-self: center;
+  margin-top: 0;
+}
+
+label {
+  font-weight: bold;
+  margin-top: 0.5em;
+  display: block;
+}
+
+div.tags {
+  padding: 0em;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+h3 {
+  margin: 0 .5em;
+  color: rgb(71, 10, 39);
+}
+
+header div {
+  display: flex;
+}
+
+div.right {
+  margin-left: auto;
+}
+
+form>div {
+  margin-bottom: 1em;
+}
+
+input,
+select,
+textarea {
+  background-color: rgb(0, 21, 255);
+  color: rgb(239, 255, 20);
+  font-weight: bold;
+  border-color: rgb(204, 204, 204);
+  border-style: inset;
+  border-width: 0.25em;
+  padding: 0.5em;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+button {
+  background-image: linear-gradient(rgb(220, 220, 220), rgb(155, 155, 155));
+  background-color: rgb(226, 226, 226);
+  border-color: rgb(209, 209, 209);
+  border-style: outset;
+  border-width: 0.5em;
+  cursor: pointer;
+  margin: auto;
+  height: 3em;
+  min-width: 4em;
+  padding: 0.5em;
+  font-weight: bold;
+}
+
+button:hover {
+  background-image: linear-gradient(rgb(210, 210, 210), rgb(194, 194, 194));
+  background-color: rgb(216, 216, 216);
+  border-color: rgb(199, 199, 199);
+  border-width: 0.6em;
+  padding: 0.4em;
+  transition: 0.53s;
+}
+
+button:active {
+  background-image: linear-gradient(rgb(157, 157, 157), rgb(176, 176, 176));
+  border-width: 0.75em;
+  padding: 0.15em;
+  border-style: inset;
+  border-color: rgb(159, 159, 159);
+  transition: 0.3s;
 }
