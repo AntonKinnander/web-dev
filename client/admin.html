@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin</title>
+</head>
+
+<body>
+  <div>
+    <h1>Admin view</h1>
+    <button onclick="resetForm()">+ Add Store</button>
+  </div>
+  <!-- //Edit group -->
+  <div id="group">
+    <div>
+      <h2 id="groupTitle">Add Store</h2>
+      <form id="storeForm">
+        <input type="hidden" id="storeId">
+        <div>
+          <label>Name:</label>
+          <input type="text" id="name" required>
+        </div>
+        <div>
+          <label>URL:</label>
+          <input type="text" id="url">
+        </div>
+        <div>
+          <label>District:</label>
+          <input type="text" id="district">
+        </div>
+        <div>
+          <label>Description:</label>
+          <textarea id="description" rows="4"></textarea>
+        </div>
+        <div>
+          <label>Slug:</label>
+          <input type="text" id="slug" required>
+        </div>
+        <div>
+          <button type="button" onclick="resetForm()">Cancel</button>
+          <button type="submit">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="storeList"></div>
+
+
+
+  <script src="/js/admin.js"></script>
+</body>
+
+</html>
