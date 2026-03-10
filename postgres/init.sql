@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS stores (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  url TEXT,
+  district VARCHAR(100),
+  description TEXT,
+  slug VARCHAR(255) UNIQUE NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS admins (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(50) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL
+);
+
+INSERT INTO admins (username, password) VALUES ('admin', 'password') ON CONFLICT (username) DO NOTHING;

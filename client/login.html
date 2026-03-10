@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <header>
+        <h1>Jönköping City</h1>
+        <div class="left"><a href="index.html">Home</a> <a href="/random">Random Store</a></div>
+        <div class="right"> <a href="login.html">Log in</a></div>
+    </header>
+    <h1>Admin Login</h1>
+    <form action="/login" method="POST">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+</body>
+
+</html>

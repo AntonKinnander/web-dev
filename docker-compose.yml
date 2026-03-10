@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  db:
+    build: ./postgres
+    container_name: stores-postgres-container
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=stores_db
+  backend:
+    build: .
+    container_name: stores-backend
+    ports:
+      - "3005:3005"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=12345
+      - DB_NAME=stores_db

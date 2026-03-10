@@ -1,18 +1,27 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JkpgCity</title>
-    <link rel="stylesheet" href="https://use.typekit.net/oyt1zsy.css" />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <script src="js/app.js"></script>
-    <header>
-      <a href="index.html">Home</a> <a href="/random">Random Store</a>
-    </header>
-    <h1>Stores in Jönköping</h1>
-    <ul id="stores"></ul>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JkpgCity</title>
+  <link rel="stylesheet" href="https://use.typekit.net/oyt1zsy.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <script src="js/app.js"></script>
+  <header>
+    <h1>Jönköping City</h1>
+    <div class="left"><a href="index.html">Home</a> <a href="/random">Random Store</a></div>
+    <div class="right"> <a href="login.html">Log in</a></div>
+  </header>
+  <h1>Stores in Jönköping</h1>
+  <div class="tags">
+    <button id="sortNameBtn">Sort by Name</button>
+    <button id="sortAreaBtn">Sort by Area</button>
+  </div>
+  <ul id="stores"></ul>
+</body>
+
 </html>

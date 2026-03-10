@@ -1,8 +1,1 @@
-```bash
-# Npm script
-npm install
-npm start
-
-#Or Node
-node server/server.js
-```
+docker-compose up -d --build backend
