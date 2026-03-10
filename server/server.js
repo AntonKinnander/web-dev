@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const Store = require("./model");
+const Store = require("./model/Store");
 
 const app = express();
 const PORT = 3005;
@@ -35,6 +35,7 @@ const startServer = async () => {
   app.get("/random", async (req, res) => {
     const store = await Store.getRandomStore();
     res.redirect(`/store/${store.slug}`);
+    //Error would be handled by below route after redirect
   });
 
   //To show specific store pages Borde vi ändra och lägga in slug utan svenska tecken så urln blir /ahlens istället för /åhlens?
@@ -49,6 +50,22 @@ const startServer = async () => {
     } catch (err) {
       res.status(500).json({ error: "Failed to fetch store" });
     }
+  });
+
+  // Read OG image of url
+  app.get("/api/og-image", async (req, res) => {
+    //Reg ex replace everything after characther https://stackoverflow.com/questions/34437987/regex-for-replacing-everything-after-instance-of-a-character
+    const url = "https://" + req.query.url.replace(/\/.*/, "");
+    const html = await fetch(url).then((r) => r.text());
+
+    // Stackoverflow regex for og:image https://stackoverflow.com/questions/60588035/find-the-content-of-meta-tag-using-regular-expression
+    const image1 = html.match(/property=["']og:image["'][^>]*content=["']([^"']+)/i);
+    const image2 = html.match(/content=["']([^"']+)["'][^>]*property=["']og:image/i);
+
+    if (image1) return res.json({ image: image1[1] });
+    if (image2) return res.json({ image: image2[1] });
+
+    res.json({ image: null });
   });
 
   // Admin API routes

@@ -172,6 +172,7 @@ textarea {
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance: none;
 }
 
 button {
@@ -204,4 +205,13 @@ button:active {
   border-style: inset;
   border-color: rgb(159, 159, 159);
   transition: 0.3s;
+}
+
+div#store_info img {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 1em;
+  border: 0.25em inset rgb(204, 204, 204);
+  box-sizing: border-box;
 }

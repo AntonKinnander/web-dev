@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //Stores array to hold data for sorting
   let allStores = [];
   //Current sorting state
-  let currentSort = { field: "name", direction: 1 };
+  let currentSort = { field: null, direction: 1 };
 
   //Fetches all stores from the server for index.html
   const list = document.getElementById("stores");
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .catch((err) => console.error("Error", err));
 
-    //Sorts stores based on field
+    //Sorts stores based on field (name or area)
     function sortStores(field) {
       //Toggles direction if same field, else default to ascending
       if (currentSort.field === field) {
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currentSort.direction = 1;
       }
 
-      //Sorts the array alphabetically
+      //sort the array alphabetically
       allStores.sort((a, b) => {
         const valA = (a[field] || "").toLowerCase();
         const valB = (b[field] || "").toLowerCase();
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (valA < valB) return -1 * currentSort.direction;
         if (valA > valB) return 1 * currentSort.direction;
 
-        //Secondary sort by name if fields are identical
+        //then sort by name anyway (In case of same area)
         if (field !== "name") {
           const nameA = (a.name || "").toLowerCase();
           const nameB = (b.name || "").toLowerCase();
@@ -46,17 +46,17 @@ document.addEventListener("DOMContentLoaded", () => {
         return 0;
       });
 
-      //Renders the stores to index.html
       renderStores(allStores);
     }
 
-    //Renders stores to the HTML list
+    //renders stores to the HTML list
     function renderStores(stores) {
       list.innerHTML = "";
 
       stores.forEach((store) => {
         const li = document.createElement("li");
 
+        // If null will say unknown area
         li.innerHTML = `
           <h2>${store.name}</h2>
           <h3>${store.district || "Unknown Area"}</h3>
@@ -90,12 +90,27 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch(`/stores/${slug}`)
       .then((res) => res.json())
       .then((store) => {
+        // Render initial content with empty image container that will get the opengraph image
         div.innerHTML = `
+          <div id="store-image-container"></div>
           <h2>${store.name}</h2>
           <p>${store.description}</p>
           <a href="http://${store.url}" target="_blank">Visit ${store.name}</a>
         `;
-      })
-      .catch((err) => console.error("Error loading store:", err));
+
+        // Fetch oepngraph image if the store has one well if its detected
+        if (store.url) {
+          fetch(`/api/og-image?url=${encodeURIComponent(store.url)}`)
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.image) {
+                const imgContainer = document.getElementById("store-image-container");
+                if (imgContainer) {
+                  imgContainer.innerHTML = `<img src="${data.image}" alt="${store.name} thumbnail">`;
+                }
+              }
+            });
+        }
+      });
   }
 });

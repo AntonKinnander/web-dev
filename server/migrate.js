@@ -1,33 +1,25 @@
-const { Client } = require('pg');
-const fs = require('fs');
-const path = require('path');
+const Store = require("./model/Store");
+let storesData = [];
 
-class Migration {
-    client = new Client({
-        host: 'localhost',
-        port: 5432,
-        user: 'postgres',
-        password: '12345',
-        database: 'postgres'
-    });
+storesData = require("../client/assets/stores.json");
 
-    stores = JSON.parse(
-        fs.readFileSync(path.join(__dirname, '../client/assets/stores.json'))
-    );
 
-    async migrate() {
-        await this.client.connect();
+async function migrateData() {
+    await Store.connectDB();
 
-        for (const store of this.stores) {
-            await this.client.query(
-                `INSERT INTO stores (name, url, district, description, slug)
-                 VALUES ($1, $2, $3, $4, $5)`,
-                [store.name, store.url, store.district, store.description, store.slug]
-            );
+    console.log(`Migrating ${storesData.length} stores...`);
+
+    for (const store of storesData) {
+        try {
+            await Store.createStore(store);
+            console.log(`Create: ${store.name}`);
+        } catch (err) {
+            console.error(`Failed: ${store.name}`, err.message);
         }
-
-        await this.client.end();
     }
+
+    console.log("Migration complete!");
+    await Store.disconnectDB();
 }
 
-new Migration().migrate();
+migrateData();
